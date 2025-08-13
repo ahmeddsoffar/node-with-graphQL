@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GraphQL Products Manager</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1><i class="fas fa-boxes"></i> GraphQL Products Manager</h1>
+        <p>A simple frontend for your Node.js + GraphQL backend</p>
+      </header>
+
+      <!-- Add Product Form -->
+      <section class="add-product-section">
+        <h2><i class="fas fa-plus-circle"></i> Add New Product</h2>
+        <form id="addProductForm" class="product-form">
+          <div class="form-group">
+            <label for="title">Product Title:</label>
+            <input type="text" id="title" name="title" required />
+          </div>
+          <div class="form-group">
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" required />
+          </div>
+          <div class="form-group">
+            <label for="price">Price ($):</label>
+            <input type="number" id="price" name="price" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label for="inStock">In Stock:</label>
+            <select id="inStock" name="inStock" required>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-plus"></i> Add Product
+          </button>
+        </form>
+      </section>
+
+      <!-- Products List -->
+      <section class="products-section">
+        <div class="products-header">
+          <h2><i class="fas fa-list"></i> Products List</h2>
+          <div class="controls">
+            <button id="refreshBtn" class="btn-secondary">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <select id="sortField" class="sort-select">
+              <option value="title">Sort by Title</option>
+              <option value="category">Sort by Category</option>
+              <option value="price">Sort by Price</option>
+            </select>
+            <select id="sortOrder" class="sort-select">
+              <option value="ASC">Ascending</option>
+              <option value="DESC">Descending</option>
+            </select>
+          </div>
+        </div>
+        <div id="loading" class="loading hidden">
+          <i class="fas fa-spinner fa-spin"></i> Loading...
+        </div>
+        <div id="productsContainer" class="products-grid">
+          <!-- Products will be loaded here -->
+        </div>
+      </section>
+
+      <!-- Edit Modal -->
+      <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-edit"></i> Edit Product</h3>
+            <button id="closeModal" class="close-btn">&times;</button>
+          </div>
+          <form id="editProductForm" class="product-form">
+            <input type="hidden" id="editId" name="id" />
+            <div class="form-group">
+              <label for="editTitle">Product Title:</label>
+              <input type="text" id="editTitle" name="title" required />
+            </div>
+            <div class="form-group">
+              <label for="editCategory">Category:</label>
+              <input type="text" id="editCategory" name="category" required />
+            </div>
+            <div class="form-group">
+              <label for="editPrice">Price ($):</label>
+              <input
+                type="number"
+                id="editPrice"
+                name="price"
+                step="0.01"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="editInStock">In Stock:</label>
+              <select id="editInStock" name="inStock" required>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <div class="modal-actions">
+              <button type="button" id="cancelEdit" class="btn-secondary">
+                Cancel
+              </button>
+              <button type="submit" class="btn-primary">
+                <i class="fas fa-save"></i> Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div id="messages" class="messages-container"></div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
